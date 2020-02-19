@@ -1,0 +1,10 @@
+language: java
+
+jdk: openjdk8
+
+script:
+  - echo "Hola travis"
+  - mvn package
+  - ssh-keyscan -H ec2-18-224-25-233.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+  - ssh-keyscan -H 18.224.25.233 >> ~/.ssh/known_hosts
+  - scp -i UbuntuKey.pem target/*.war ubuntu@ec2-18-224-25-233.us-east-2.compute.amazonaws.com:/tmp
